@@ -344,6 +344,48 @@ var duoshuoQuery = {short_name:"droidlover"};
 现在，你可以运行看下效果了:)
 
 
+## 11 hexo 更换电脑解决方案 （利用git分支来管理自己hexo的源文件）
+
+克隆gitHub上面生成的静态文件到本地：
+
+```
+git clone https://github.com/yourname/hexo-test.github.io.git
+```
+
+把克隆到本地的文件除了git的文件都删掉，找不到git的文件的话就到删了吧。不要用hexo init初始化
+
+将之前使用hexo写博客时候的整个目录（所有文件）搬过来。把该忽略的文件忽略了
+
+创建一个叫hexo的分支
+
+```
+git checkout -b hexo
+```
+
+提交复制过来的文件到暂存区
+
+```
+git add --all
+```
+
+提交
+
+```
+git commit -m "新建分支源文件"
+```
+
+推送分支到github
+
+```
+git push --set-upstream origin hexo
+```
+
+克隆分支的操作
+
+```
+git clone -b hexo https://github.com/yourname/hexo-test.github.io.git
+```
+
 
 
 
