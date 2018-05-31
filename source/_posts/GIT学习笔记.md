@@ -1,4 +1,4 @@
-### GIT项目分支开发流程
+### GIT项目分支开发流程 test2
 #### 1. 创建d-kaifa分支
 * `git checkout master && git pull`
 * `git checkout -b d-kaifa master`
@@ -59,4 +59,13 @@ A先提交,B再提交，报以下错误：
 
 A先提交，B再提交，报以下错误：
 
+![Alt text](/image/push-conflict2.png)
+
+解决方法：
+
+先   `git pull origin hexo`
+
+再   `git push origin hexo`
+
+####3.修改相同的文件，改相同行
 
