@@ -1,4 +1,8 @@
-### GIT项目分支开发流程
+<<<<<<< HEAD
+### GIT项目分支开发流程 test1
+=======
+### GIT项目分支开发流程 test2
+>>>>>>> 0776dc92958c84b42516e20cb814df64abec09d3
 #### 1. 创建d-kaifa分支
 * `git checkout master && git pull`
 * `git checkout -b d-kaifa master`
