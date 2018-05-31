@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="GIT," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一.GIT项目分支开发流程1. 创建d-kaifa分支 git checkout master &amp;amp;&amp;amp; git pull git checkout -b d-kaifa master git reset release **/pom.xml git checkout . git commit -m 创建开发分支并修改内网版本  2. 项目开发并合并到develop分支 git che">
+<meta name="keywords" content="GIT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GIT项目开发实践">
+<meta property="og:url" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/index.html">
+<meta property="og:site_name" content="CHENWENNING BLOG">
+<meta property="og:description" content="一.GIT项目分支开发流程1. 创建d-kaifa分支 git checkout master &amp;amp;&amp;amp; git pull git checkout -b d-kaifa master git reset release **/pom.xml git checkout . git commit -m 创建开发分支并修改内网版本  2. 项目开发并合并到develop分支 git che">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/push-conflict.png">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/push-conflict2.png">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/push-conflict3.png">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/push-conflict4.png">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/push-conflict5.png">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/git-status.png">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/git-status2.png">
+<meta property="og:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/git-quantu.png">
+<meta property="og:updated_time" content="2018-05-31T09:28:28.166Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GIT项目开发实践">
+<meta name="twitter:description" content="一.GIT项目分支开发流程1. 创建d-kaifa分支 git checkout master &amp;amp;&amp;amp; git pull git checkout -b d-kaifa master git reset release **/pom.xml git checkout . git commit -m 创建开发分支并修改内网版本  2. 项目开发并合并到develop分支 git che">
+<meta name="twitter:image" content="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/push-conflict.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/"/>
+
+
+
+
+
+  <title>GIT项目开发实践 | CHENWENNING BLOG</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHENWENNING BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈汶宁">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pic.qqtn.com/up/2017-10/2017101317054482087.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHENWENNING BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GIT项目开发实践</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T18:30:16+08:00">
+                2018-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GIT/" itemprop="url" rel="index">
+                    <span itemprop="name">GIT</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/07/GIT-Study-Notes/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/06/07/GIT-Study-Notes/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="一-GIT项目分支开发流程"><a href="#一-GIT项目分支开发流程" class="headerlink" title="一.GIT项目分支开发流程"></a>一.GIT项目分支开发流程</h3><h4 id="1-创建d-kaifa分支"><a href="#1-创建d-kaifa分支" class="headerlink" title="1. 创建d-kaifa分支"></a>1. 创建d-kaifa分支</h4><ul>
+<li><code>git checkout master &amp;&amp; git pull</code></li>
+<li><code>git checkout -b d-kaifa master</code></li>
+<li><code>git reset release **/pom.xml</code></li>
+<li><code>git checkout .</code></li>
+<li><code>git commit -m 创建开发分支并修改内网版本</code></li>
+</ul>
+<h4 id="2-项目开发并合并到develop分支"><a href="#2-项目开发并合并到develop分支" class="headerlink" title="2. 项目开发并合并到develop分支"></a>2. 项目开发并合并到develop分支</h4><ul>
+<li><code>git checkout develop &amp;&amp; git pull</code></li>
+<li><code>git merge d-kaifa</code></li>
+</ul>
+<h4 id="3-项目提测并合并到test分支"><a href="#3-项目提测并合并到test分支" class="headerlink" title="3. 项目提测并合并到test分支"></a>3. 项目提测并合并到test分支</h4><ul>
+<li><code>git checkout test &amp;&amp; git pull</code></li>
+<li><code>git merge d-kaifa</code></li>
+</ul>
+<h4 id="4-项目验收并合并到release分支"><a href="#4-项目验收并合并到release分支" class="headerlink" title="4. 项目验收并合并到release分支"></a>4. 项目验收并合并到release分支</h4><ul>
+<li><code>git checkout release &amp;&amp; git pull</code></li>
+<li><code>git merge d-kaifa</code></li>
+</ul>
+<h4 id="5-项目上线并合并到master分支"><a href="#5-项目上线并合并到master分支" class="headerlink" title="5. 项目上线并合并到master分支"></a>5. 项目上线并合并到master分支</h4><ul>
+<li><code>git checkout master &amp;&amp; git pull</code></li>
+<li><code>git merge d-kaifa</code></li>
+<li><code>git commit -m xxx功能</code></li>
+<li><code>git tag vx.x.x-xxxxxxx</code></li>
+<li><code>git push origin master</code></li>
+<li><code>git push origin vx.x.x-xxxxxxx</code><ul>
+<li>代码有问题继续改bug<ul>
+<li><code>git checkout d-kaifa</code></li>
+<li><code>git merge master</code></li>
+<li>开发。。。</li>
+<li>重复上线流程</li>
+</ul>
+</li>
+<li>开发完成<ul>
+<li><code>git branch -D d-kaifa</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>###二.GIT冲突实战</p>
+<p>冲突场景：</p>
+<p>####1.修改相同的项目<br>A先提交,B再提交，报以下错误：<br><img src="/2018/06/07/GIT-Study-Notes/push-conflict.png" alt="Alt text"></p>
+<p>解决方法：</p>
+<p>先   <code>git pull origin hexo</code></p>
+<p>再   <code>git push origin hexo</code></p>
+<h4 id="2-修改相同的文件，不改向同行"><a href="#2-修改相同的文件，不改向同行" class="headerlink" title="2.修改相同的文件，不改向同行"></a>2.修改相同的文件，不改向同行</h4><p>A先提交，B再提交，报以下错误：</p>
+<p><img src="/2018/06/07/GIT-Study-Notes/push-conflict2.png" alt="Alt text"></p>
+<p>解决方法：</p>
+<p>先   <code>git pull origin hexo</code></p>
+<p>再   <code>git push origin hexo</code></p>
+<p>####3.修改相同的文件，改相同行<br>A先提交，B再提交，报以下错误：</p>
+<p><img src="/2018/06/07/GIT-Study-Notes/push-conflict3.png" alt="Alt text"></p>
+<p>解决方法：</p>
+<p>先    <code>git pull origin hexo</code></p>
+<p><img src="/2018/06/07/GIT-Study-Notes/push-conflict4.png" alt="Alt text"></p>
+<p>再手动合并：</p>
+<p><img src="/2018/06/07/GIT-Study-Notes/push-conflict5.png" alt="Alt text"></p>
+<p>手动合并好后：</p>
+<p>执行   <code>git add .</code></p>
+<p>执行   <code>git commit -m &quot; 提交hexo&quot;</code></p>
+<p>执行   <code>git push origin hexo</code></p>
+<p>问题解决</p>
+<p>####4.修改相同的文件，改相同行；A:先提交；B:把文件add到暂存区，但不commit; 这时B 进行pull</p>
+<p>解决方法：</p>
+<p>B先执行   <code>git commit -m &quot; 提交hexo&quot;</code></p>
+<p>执行   <code>git pull origin hexo</code></p>
+<p>###三.GIT 文件状态示意图</p>
+<p><img src="/2018/06/07/GIT-Study-Notes/git-status.png" alt="Alt text"></p>
+<p>1.暂存区：执行 git add 文件 后 该文件就到了暂存区</p>
+<p>2.修改区：就是之前有这个文件 但是现在修改文件内容</p>
+<p>3.未追踪区：就是刚刚添加  还没有执行 git add 操作</p>
+<p><img src="/2018/06/07/GIT-Study-Notes/git-status2.png" alt="Alt text"></p>
+<p>###四.GIT 命令小图</p>
+<p><img src="/2018/06/07/GIT-Study-Notes/git-quantu.png" alt="Alt text"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GIT/" rel="tag"># GIT</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/07/后端架构师技术图谱/" rel="next" title="后端架构师技术图谱（转载）">
+                <i class="fa fa-chevron-left"></i> 后端架构师技术图谱（转载）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/06/07/GIT-Study-Notes/"
+           data-title="GIT项目开发实践" data-url="https://chenwenning.github.io/2018/06/07/GIT-Study-Notes/">
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://pic.qqtn.com/up/2017-10/2017101317054482087.jpg"
+                alt="陈汶宁" />
+            
+              <p class="site-author-name" itemprop="name">陈汶宁</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chenwenning" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="chen2838975464@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一-GIT项目分支开发流程"><span class="nav-number">1.</span> <span class="nav-text">一.GIT项目分支开发流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-创建d-kaifa分支"><span class="nav-number">1.1.</span> <span class="nav-text">1. 创建d-kaifa分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-项目开发并合并到develop分支"><span class="nav-number">1.2.</span> <span class="nav-text">2. 项目开发并合并到develop分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-项目提测并合并到test分支"><span class="nav-number">1.3.</span> <span class="nav-text">3. 项目提测并合并到test分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-项目验收并合并到release分支"><span class="nav-number">1.4.</span> <span class="nav-text">4. 项目验收并合并到release分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-项目上线并合并到master分支"><span class="nav-number">1.5.</span> <span class="nav-text">5. 项目上线并合并到master分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-修改相同的文件，不改向同行"><span class="nav-number">1.6.</span> <span class="nav-text">2.修改相同的文件，不改向同行</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈汶宁</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"droidlover"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
